@@ -1,0 +1,100 @@
+ <!-- 判断是否有菜谱 -->
+ <!-- 有菜谱时显示的内容 -->
+<view wx:if="{{menu.length !== 0}}">
+   <view class="hot-recipe-lists" wx:for="{{menu}}" wx:key="_id">
+ 	<!-- 菜谱列表 -->
+ 	<view class='hot-recipe-list'>
+ 		<!-- 菜谱图片 -->
+ 		<view class="recipeimage" bindtap="toDetail" id="{{item._id}}">
+ 			<image src="{{item.fileIds[0].url}}"></image>
+ 		</view>
+ 		<!-- 菜谱信息 -->
+ 		<view class="recipeinfo">
+ 			<!-- 菜谱名称 -->
+ 			<view class="recipename">
+ 				<text>{{item.menuName}}</text>
+ 			</view>
+ 			<view class="recipefooter">
+ 				<!-- 几星图片 ， 推荐度（关注度） / 3 来做 -->
+ 				<view class="xingxing" wx:if='{{item.follows < 3}}'>
+ 					<!-- 关注不足3个，没有星星  {{ item.tjcp/3 < 1 }}-->
+					 
+					<!-- 关注大于3个，小于6个，1个星星  {{ item.tjcp/3 >= 1 && item.tjcp/3 < 2 }}-->
+					<!-- 以此类推，小星星 {{ item.tjcp/3 >= 2 && item.tjcp/3 < 3 }} -->
+ 					<block>
+ 						<!-- <image wx:for="{{ [1,2,3] }}" src="/static/index/xingxing1.png"></image> -->
+ 					</block>
+ 					<block>
+ 						<image wx:for="{{ [1,2,3,4,5] }}" src="/static/index/xingxing0.png"></image>
+ 					</block>
+ 				</view> 
+          <!-- 关注大于3个，小于6个，1个星星  -->
+ 					<view class="xingxing"  wx:if='{{item.follows > 3 && item.follows < 6  }}'>
+ 					<block>
+ 						<image wx:for="{{ [1] }}" src="/static/index/xingxing1.png"></image>
+ 					</block>
+ 					<block>
+ 						<image wx:for="{{ [1,2,3,4] }}" src="/static/index/xingxing0.png"></image>
+ 					</block>
+ 				</view> 
+				  <!-- 关注大于6个，小于9个，2个星星  -->
+ 					<view class="xingxing"  wx:if='{{item.follows >= 6 && item.follows < 9  }}'>
+ 					<block>
+ 						<image wx:for="{{ [1,2] }}" src="/static/index/xingxing1.png"></image>
+ 					</block>
+ 					<block>
+ 						<image wx:for="{{ [1,2,3] }}" src="/static/index/xingxing0.png"></image>
+ 					</block>
+ 				</view> 
+				   <!-- 关注大于12个，小于9个，3个星星  -->
+ 					<view class="xingxing"  wx:if='{{item.follows >= 9 && item.follows < 12  }}'>
+ 					<block>
+ 						<image wx:for="{{ [1,2,3] }}" src="/static/index/xingxing1.png"></image>
+ 					</block>
+ 					<block>
+ 						<image wx:for="{{ [1,2] }}" src="/static/index/xingxing0.png"></image>
+ 					</block>
+ 				</view> 
+				    <!-- 关注大于12个，小于15个，4个星星  -->
+ 					<view class="xingxing"  wx:if='{{item.follows >= 12 && item.follows < 15  }}'>
+ 					<block>
+ 						<image wx:for="{{ [1,2,3,4] }}" src="/static/index/xingxing1.png"></image>
+ 					</block>
+ 					<block>
+ 						<image wx:for="{{ [1] }}" src="/static/index/xingxing0.png"></image>
+ 					</block>
+ 				</view> 
+				   <!-- 关注大于15个，5个星星  -->
+ 					<view class="xingxing"  wx:if='{{item.follows >= 15}}'>
+ 					<block>
+ 						<image wx:for="{{ [1,2,3,4,5] }}" src="/static/index/xingxing1.png"></image>
+ 					</block>
+ 					<!-- <block>
+ 						<image wx:for="{{ [1] }}" src="/static/index/xingxing0.png"></image>
+ 					</block> -->
+ 				</view> 
+				 
+
+ 				<!-- 菜谱发布人信息 -->
+ 				<view class="recipedetail">
+ 					<image class="usernameimage" src="{{item.avatarUrl}}"></image>
+ 					<text>{{item.nickName}}</text>
+ 					<image class="tjimage" src="/static/index/tj.png"></image>
+ 					<text>{{item.follows}}</text>
+ 					<image class="hotimage" src="/static/index/hot.png"></image>
+ 					<text>{{item.views}}</text>
+ 				</view>
+ 			</view>
+
+ 		</view>
+ 	</view>
+ </view>
+</view>
+ <!-- 没有菜谱时显示的内容 -->
+ <view class="tips" wx:else>
+ 	暂时还没有朋友发布菜谱哦！！！
+ </view>
+ <!-- 滚动获取数据时，数据不够的情况 -->
+ <view class="tips">
+ 	已经没有数据啦！！！
+ </view>
